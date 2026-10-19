@@ -1,0 +1,6 @@
+﻿raw_data/
+model_ckpt/
+result/
+HierSeq2Seq_dataset.zip
+__pycache__/
+*.pyc
