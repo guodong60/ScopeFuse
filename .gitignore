@@ -4,3 +4,5 @@ result/
 HierSeq2Seq_dataset.zip
 __pycache__/
 *.pyc
+ScopeFuse_dataset.zip
+README_funcom_section.md
