@@ -96,3 +96,19 @@ cd <HetCoS official script directory>
 python <this repo>/diagnose/official_eval.py --my_lib_parent MYLIB_PARENT \
     --result_paths <this repo>/result/exp9_tk_base_test.json
 ```
+## 7. Second dataset: FunCom-50
+
+The same model and code are also run on FunCom-50, using only the files in `funcom/`. 
+
+**Data.** Download FunCom-50 from[funcom.zip - Google 云端硬盘](https://drive.google.com/file/d/1-WSPQNAnoW4QFd0Hi4tc6ellrVTZx_Bo/view) and place `funcom_train.jsonl` and `funcom_test.jsonl` in
+`raw_data/funcom/`. 
+
+**Run** (from `java/`, one stage per command; `DEVICE`, `NAME`, `MAX_EPOCHS` can be overridden as environment variables):
+
+```bash
+bash funcom/run.sh convert      # raw_data/funcom/*.jsonl -> raw_data/funcom_conv_full/{train,valid,test}_data.json
+bash funcom/run.sh preprocess   # vocabulary + arrays (same limits as Section 4, --text_mode pretokenized)
+bash funcom/run.sh train        # 10 epochs, avg of the 3 best epochs; log: logs_fc_full_all.txt
+bash funcom/run.sh eval         # beam 5 on the test set -> result/fc_full_all_test.json
+bash funcom/run.sh official     # official ROUGE-L / S-BLEU / METEOR (needs MYLIB_PARENT, see Section 1)
+```
